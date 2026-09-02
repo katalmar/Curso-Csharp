@@ -208,10 +208,15 @@ para conocer la ubicación actual.
 
 ---
 
-### 2. Muévete a la carpeta donde quieres guardar tus proyectos
+### 2. Muévete a la carpeta donde quieres guardar tus proyectos y crea el proyecto
 
 Para cambiar de carpeta utilizamos el comando: 'cd' + ' ' + 'direccion carpeta'
 `cd` significa **Change Directory**.
+
+una vez estas en la carpeta, escribe en el terminal: dotnet new console -n NombreDeTuProyecto
+
+esto creara una solucion de C# en la direccion actual
+
 
 ---
 
