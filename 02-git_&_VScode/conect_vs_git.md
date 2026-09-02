@@ -1,41 +1,31 @@
-# Tutorial: conectar VS Code con GitHub
+# Tutorial: conectar VS Code con GitHub en Windows
 
-Este tutorial explica cómo conectar un proyecto que tienes en tu computador, abierto en **Visual Studio Code (VS Code)**, con tu cuenta personal de **GitHub**.
-
-La idea general es:
-
-```text
-Proyecto en tu computador
-          ↓
-         Git
-          ↓
-       GitHub
-```
-
+Este tutorial explica cómo conectar un proyecto de **Visual Studio Code (VS Code)** con una cuenta personal de **GitHub**, utilizando Git.
 ---
 
-## 1. ¿Qué necesitas?
+# 3. Comprobar si Git está instalado
 
-Antes de comenzar necesitas:
+Git es el programa que permite controlar las versiones de nuestro proyecto y conectarlo con GitHub.
 
-* Una cuenta personal de GitHub.
-* Visual Studio Code instalado.
-* Git instalado en tu computador.
-* Una carpeta con tu proyecto.
-
-VS Code tiene integración con Git y GitHub, por lo que puedes realizar muchas operaciones directamente desde su interfaz.
-
----
-
-# 2. Comprobar que Git está instalado
+## 3.1 Abrir la terminal de VS Code
 
 Abre VS Code.
 
-Después abre la terminal:
+En el menú superior selecciona:
 
 **Terminal → New Terminal**
 
-También puedes utilizar el atajo correspondiente a tu sistema.
+También puedes utilizar:
+
+```text
+Ctrl + `
+```
+
+Se abrirá una terminal en la parte inferior de VS Code.
+
+---
+
+## 3.2 Comprobar Git
 
 En la terminal escribe:
 
@@ -43,73 +33,43 @@ En la terminal escribe:
 git --version
 ```
 
-Si aparece algo parecido a:
+y presiona:
+
+**Enter**
+
+### Si Git está instalado
+
+Aparecerá algo parecido a:
 
 ```text
-git version 2.50.1
+git version 2.50.1.windows.1
 ```
 
-significa que Git está instalado correctamente.
+En ese caso, puedes continuar directamente con el **paso 5**.
 
-Si aparece un mensaje indicando que `git` no existe o no se encuentra, primero debes instalar Git.
+### Si Git no está instalado
+
+Puede aparecer un mensaje parecido a:
+
+```text
+git : The term 'git' is not recognized...
+```
+
+No hay problema. Puedes instalar Git y continuar con el tutorial.
 
 ---
 
-# 3. Iniciar sesión en GitHub desde VS Code
+# 4. Instalar Git si no está instalado
 
-Abre la paleta de comandos de VS Code:
+VS Code puede detectar que Git no está disponible y permitirte instalarlo mediante las opciones de integración de control de código fuente.
 
-**View → Command Palette**
+## 4.1 Abrir Source Control
 
-También puedes utilizar:
-
-```text
-Mac: ⇧ + ⌘ + P
-```
-
-Escribe:
-
-```text
-GitHub
-```
-
-Busca las opciones relacionadas con iniciar sesión en GitHub.
-
-VS Code puede abrir una ventana del navegador para que autorices la conexión con tu cuenta de GitHub.
-
-Una vez autorizada la cuenta, regresa a VS Code.
-
----
-
-# 4. Abrir tu proyecto en VS Code
-
-En VS Code selecciona:
-
-**File → Open Folder...**
-
-Selecciona la carpeta que contiene tu proyecto.
-
-Por ejemplo:
-
-```text
-Documentos/
-└── MiProyecto/
-    ├── Program.cs
-    ├── README.md
-    └── ...
-```
-
-Es importante abrir la **carpeta principal del proyecto**, no solamente uno de los archivos.
-
----
-
-# 5. Inicializar Git en el proyecto
-
-En la barra lateral izquierda de VS Code busca:
+En la barra lateral izquierda de VS Code busca el icono:
 
 **Source Control**
 
-El icono normalmente parece una ramificación:
+Su icono tiene aproximadamente esta forma:
 
 ```text
     o
@@ -119,220 +79,442 @@ El icono normalmente parece una ramificación:
 
 Haz clic sobre él.
 
-Si el proyecto todavía no tiene Git, VS Code debería mostrar una opción similar a:
+Si Git no está instalado, VS Code puede mostrar un mensaje indicando que Git no está disponible y ofrecer opciones para instalarlo o abrir la documentación correspondiente.
+
+> **Importante:** la disponibilidad exacta del botón de instalación puede variar según la versión de VS Code. Si VS Code no muestra directamente un instalador, puedes instalar Git desde su instalador oficial de Windows y después reiniciar VS Code.
+
+---
+
+## 4.2 Instalar Git para Windows
+
+Si VS Code no ofrece directamente la instalación, utiliza **Git for Windows**.
+
+Descarga e instala Git siguiendo el instalador.
+
+Durante la instalación, si no sabes qué opciones elegir, puedes mantener las opciones predeterminadas.
+
+Una vez terminada la instalación:
+
+1. Cierra VS Code.
+2. Vuelve a abrir VS Code.
+3. Abre una nueva terminal.
+4. Ejecuta:
+
+```bash
+git --version
+```
+
+Deberías obtener algo parecido a:
+
+```text
+git version 2.50.1.windows.1
+```
+
+Ahora Git está instalado.
+
+---
+
+# 5. Configurar Git por primera vez
+
+Antes de comenzar a utilizar Git, es recomendable configurar el nombre y el correo electrónico que Git utilizará para identificar tus commits.
+
+En la terminal de VS Code escribe:
+
+```bash
+git config --global user.name "Tu Nombre"
+```
+
+Por ejemplo:
+
+```bash
+git config --global user.name "Katherine Romero"
+```
+
+Después configura tu correo:
+
+```bash
+git config --global user.email "tu-correo@example.com"
+```
+
+Utiliza el correo que tengas asociado a tu cuenta de GitHub o el correo que hayas configurado para tus commits.
+
+---
+
+## 5.1 Comprobar la configuración
+
+Puedes comprobar la configuración utilizando:
+
+```bash
+git config --global user.name
+```
+
+y:
+
+```bash
+git config --global user.email
+```
+
+Git debería mostrar los datos configurados.
+
+---
+
+# 6. Iniciar sesión en GitHub desde VS Code
+
+Ahora vamos a conectar VS Code con tu cuenta personal de GitHub.
+
+## 6.1 Abrir la paleta de comandos
+
+En VS Code presiona:
+
+```text
+Ctrl + Shift + P
+```
+
+Aparecerá una barra en la parte superior.
+
+Escribe:
+
+```text
+GitHub
+```
+
+Busca las opciones relacionadas con iniciar sesión en GitHub.
+
+VS Code puede abrir tu navegador para realizar la autenticación.
+
+---
+
+## 6.2 Autorizar VS Code
+
+En el navegador:
+
+1. Inicia sesión en tu cuenta personal de GitHub.
+2. Autoriza a VS Code cuando se solicite.
+3. Regresa a VS Code.
+
+Ahora VS Code podrá utilizar tu cuenta de GitHub para publicar y sincronizar repositorios.
+
+---
+
+# 7. Abrir el proyecto en VS Code
+
+Ahora debemos abrir el proyecto que queremos conectar con GitHub.
+
+En VS Code selecciona:
+
+**File → Open Folder...**
+
+Busca la carpeta donde está tu proyecto.
+
+Por ejemplo:
+
+```text
+C:\Users\TuUsuario\Documents\MiProyecto
+```
+
+La estructura podría ser:
+
+```text
+MiProyecto
+│
+├── Program.cs
+├── README.md
+└── ...
+```
+
+Selecciona la carpeta:
+
+```text
+MiProyecto
+```
+
+y presiona:
+
+**Select Folder**
+
+---
+
+# 8. Crear un repositorio Git local
+
+Ahora debemos indicarle a Git que esta carpeta es un repositorio.
+
+En VS Code abre:
+
+**Source Control**
+
+Si la carpeta todavía no tiene Git, aparecerá una opción como:
 
 **Initialize Repository**
 
-Haz clic en ella.
+Haz clic sobre ella.
 
-Esto crea un repositorio Git local dentro de tu proyecto.
-
-Es equivalente a ejecutar:
+VS Code ejecutará internamente:
 
 ```bash
 git init
 ```
 
-Pero en este caso VS Code realiza la operación por ti.
+Esto crea un repositorio Git local.
 
 ---
 
-# 6. ¿Qué acaba de ocurrir?
+## 8.1 ¿Qué significa "repositorio local"?
 
-Ahora tu proyecto tiene un repositorio Git local:
+Significa que Git comienza a controlar los cambios de los archivos que están en tu computador.
+
+Tenemos ahora:
 
 ```text
-MiProyecto
-     ↓
-    Git
+COMPUTADOR
+│
+└── MiProyecto
+       │
+       └── Git
 ```
 
-Git comenzará a registrar los cambios que hagas en los archivos.
-
-Sin embargo, todavía **no está conectado con GitHub**.
-
-En este momento Git existe solamente en tu computador.
+Pero todavía **no hemos conectado el proyecto con GitHub**.
 
 ---
 
-# 7. Preparar los archivos para el primer commit
+# 9. Preparar los archivos para el primer commit
 
-Vuelve a:
+Después de inicializar Git, abre:
 
 **Source Control**
 
-Es posible que aparezcan tus archivos bajo:
+VS Code mostrará los archivos que Git ha detectado.
+
+Por ejemplo:
+
+```text
+CHANGES
+
+U  Program.cs
+U  README.md
+```
+
+La `U` significa:
+
+**Untracked**
+
+Es decir, Git ha encontrado el archivo, pero todavía no lo está siguiendo.
+
+---
+
+## 9.1 Agregar los archivos al Stage
+
+En Source Control encontrarás un botón `+` junto a los archivos.
+
+Haz clic en `+`.
+
+También puedes utilizar la opción para agregar todos los cambios.
+
+Los archivos pasarán de:
 
 ```text
 CHANGES
 ```
 
-Por ejemplo:
-
-```text
-U  Program.cs
-U  README.md
-```
-
-La letra `U` significa:
-
-```text
-Untracked
-```
-
-Es decir, Git todavía no está siguiendo esos archivos.
-
-Para prepararlos, pulsa el botón `+` que aparece junto a cada archivo o utiliza la opción para preparar todos los cambios.
-
-Los archivos pasarán a:
+a:
 
 ```text
 STAGED CHANGES
 ```
 
+El proceso es:
+
+```text
+Archivo
+   ↓
+Stage
+```
+
+El **Stage** es una zona donde seleccionamos los cambios que queremos incluir en el próximo commit.
+
 ---
 
-# 8. Crear el primer commit
+# 10. Crear el primer commit
 
-En Source Control encontrarás un espacio para escribir el mensaje del commit.
+Ahora debemos crear nuestro primer commit.
 
-Escribe algo como:
+En Source Control aparecerá un campo para escribir el mensaje del commit.
+
+Escribe:
 
 ```text
 Primer commit
 ```
 
-Después selecciona:
+Después presiona:
 
 **Commit**
 
-Un commit representa una versión guardada de tu proyecto.
+---
 
-El proceso es:
+## 10.1 ¿Qué es un commit?
+
+Un commit es una especie de punto de guardado de nuestro proyecto.
+
+Por ejemplo:
 
 ```text
-Archivos
-   ↓
-Stage
-   ↓
-Commit
+Commit 1
+Primer commit
 ```
 
-Pero todavía hay algo importante:
+Más adelante podríamos tener:
 
-El commit está solamente en tu computador.
+```text
+Commit 1
+Primer commit
+      ↓
+Commit 2
+Agrega menú principal
+      ↓
+Commit 3
+Agrega sistema de puntuación
+```
 
-Todavía no está en GitHub.
+Git conserva este historial.
+
+Esto permite saber qué cambios se hicieron y cuándo.
 
 ---
 
-# 9. Publicar el proyecto en GitHub
+# 11. Publicar el proyecto en GitHub
 
-Ahora VS Code puede mostrar una opción como:
+Hasta este momento tenemos:
+
+```text
+COMPUTADOR
+│
+└── MiProyecto
+       │
+       └── Git
+```
+
+Ahora queremos:
+
+```text
+COMPUTADOR
+│
+└── MiProyecto
+       │
+       └── Git
+             │
+             ↓
+          GitHub
+```
+
+---
+
+## 11.1 Utilizar "Publish to GitHub"
+
+Después del primer commit, VS Code debería mostrar una opción como:
 
 **Publish to GitHub**
 
 Haz clic sobre ella.
 
-VS Code te preguntará qué cuenta de GitHub quieres utilizar.
-
-Selecciona tu **cuenta personal**.
+VS Code utilizará la cuenta de GitHub con la que acabamos de iniciar sesión.
 
 ---
 
-# 10. Elegir si el repositorio será público o privado
+## 11.2 Elegir la cuenta
 
-VS Code puede preguntarte si quieres crear el repositorio como:
+Si tienes varias cuentas de GitHub configuradas, VS Code puede preguntarte cuál quieres utilizar.
+
+Selecciona tu:
+
+**Cuenta personal de GitHub**
+
+---
+
+## 11.3 Elegir la visibilidad
+
+VS Code te preguntará si quieres crear el repositorio como:
 
 ### Public
 
-Cualquier persona puede ver el repositorio.
+El repositorio puede ser visto por cualquier persona.
 
 ```text
 GitHub
 └── MiProyecto
-    └── Público
+    └── Public
 ```
 
 ### Private
 
-Solamente tú y las personas que autorices podrán acceder al repositorio.
+El repositorio solamente puede ser visto por ti y por las personas a las que autorices.
 
 ```text
 GitHub
 └── MiProyecto
-    └── Privado
+    └── Private
 ```
 
-Si estás aprendiendo o trabajando en un proyecto que todavía no quieres hacer público, puedes seleccionar:
+Si estás trabajando en un proyecto personal que todavía no quieres hacer público, selecciona:
 
 **Private**
 
 ---
 
-# 11. VS Code conecta el proyecto con GitHub
+## 11.4 Publicar
 
-Al publicar el proyecto, VS Code realizará automáticamente varias operaciones.
+Después de seleccionar la visibilidad, VS Code creará el repositorio en GitHub y subirá el proyecto.
 
-Conceptualmente ocurre esto:
+El proceso completo será:
 
 ```text
-TU COMPUTADOR
-
 MiProyecto
-     │
-     ↓
-    Git
-     │
-     ↓
-   Commit
-     │
-     │ Push
-     ↓
-   GitHub
-     │
-     ↓
-tu-cuenta/MiProyecto
+    ↓
+Git
+    ↓
+Commit
+    ↓
+Publish
+    ↓
+GitHub
 ```
-
-Tu repositorio local queda conectado con el repositorio remoto de GitHub.
 
 ---
 
-# 12. Comprobar que el proyecto está en GitHub
+# 12. Comprobar el repositorio en GitHub
 
-Entra a GitHub desde tu navegador y abre tu perfil.
+Abre GitHub en tu navegador e ingresa a tu cuenta.
 
-Deberías encontrar el repositorio que acabas de crear.
+Deberías encontrar el nuevo repositorio.
 
 Por ejemplo:
 
 ```text
-Tu cuenta
+Tu cuenta de GitHub
 │
 └── MiProyecto
-    ├── Program.cs
-    ├── README.md
-    └── ...
+      │
+      ├── Program.cs
+      ├── README.md
+      └── ...
 ```
 
-Si aparecen tus archivos, la conexión funcionó correctamente.
+Si aparecen tus archivos, significa que el proyecto ya está conectado con GitHub.
 
 ---
 
-# 13. ¿Qué hago cuando modifico un archivo?
+# 13. Trabajar normalmente con el proyecto
 
-A partir de ahora trabajarás normalmente en VS Code.
+A partir de ahora comienza el flujo normal de trabajo.
 
-Por ejemplo, modificas:
+Supongamos que modificas:
 
 ```text
 Program.cs
 ```
 
-VS Code detectará el cambio.
+VS Code detectará automáticamente el cambio.
 
-En Source Control puede aparecer:
+En Source Control aparecerá algo parecido a:
 
 ```text
 CHANGES
@@ -342,219 +524,181 @@ M  Program.cs
 
 La `M` significa:
 
-```text
-Modified
-```
+**Modified**
 
-Es decir, el archivo fue modificado.
+Es decir:
+
+> El archivo fue modificado después del último commit.
 
 ---
 
-# 14. El ciclo normal de trabajo
+# 14. Hacer un nuevo commit
 
-Cada vez que hagas cambios importantes en tu proyecto, puedes seguir este proceso:
+El proceso será nuevamente:
 
 ```text
-MODIFICAR ARCHIVOS
-        ↓
-       STAGE
-        ↓
-      COMMIT
-        ↓
-       PUSH
-        ↓
-      GITHUB
+Modificar
+   ↓
+Stage
+   ↓
+Commit
 ```
-
-## Paso 1: modificar
-
-Trabajas normalmente en VS Code.
 
 Por ejemplo:
 
-```text
-Program.cs
-```
+### 1. Modificar
 
----
+Cambias `Program.cs`.
 
-## Paso 2: Stage
+### 2. Stage
 
-En Source Control presiona `+` para preparar los archivos modificados.
+Presionas `+`.
 
-```text
-CHANGES
+### 3. Commit
 
-M  Program.cs
-       ↓
-       +
-       ↓
-STAGED CHANGES
-```
-
----
-
-## Paso 3: Commit
-
-Escribe un mensaje que explique qué cambiaste.
-
-Por ejemplo:
+Escribes:
 
 ```text
 Agrega cálculo de promedio
 ```
 
-Después presiona:
+y presionas:
 
 **Commit**
 
----
-
-## Paso 4: Push
-
-Después debes enviar el commit a GitHub.
-
-Puedes utilizar:
-
-**Sync Changes**
-
-o la opción equivalente de **Push**.
-
-El resultado será:
-
-```text
-COMPUTADOR
-    │
-    │ Push
-    ↓
- GITHUB
-```
-
-Ahora el cambio también estará almacenado en GitHub.
-
----
-
-# 15. ¿Qué significa Commit?
-
-Un **commit** es una versión guardada del proyecto.
-
-Por ejemplo:
+Ahora tienes:
 
 ```text
 Commit 1
-Primer programa
-```
-
-Después haces cambios:
-
-```text
+Primer commit
+      ↓
 Commit 2
-Agrega menú
+Agrega cálculo de promedio
 ```
 
-Después:
+Pero hay una diferencia importante:
 
-```text
-Commit 3
-Agrega cálculo
-```
+**El segundo commit todavía puede estar solamente en tu computador.**
 
-Git mantiene un historial:
-
-```text
-Commit 1
-   ↓
-Commit 2
-   ↓
-Commit 3
-```
-
-Esto permite saber qué cambios se hicieron a lo largo del tiempo.
+Para enviarlo a GitHub necesitas hacer un **Push**.
 
 ---
 
-# 16. ¿Qué significa Push?
+# 15. Push: enviar cambios a GitHub
 
-**Push** significa enviar tus commits desde tu computador hacia GitHub.
+**Push** significa enviar tus commits locales al repositorio de GitHub.
+
+El flujo es:
 
 ```text
 COMPUTADOR
     │
     │ PUSH
     ↓
-  GITHUB
+ GITHUB
+```
+
+En VS Code puedes utilizar:
+
+**Sync Changes**
+
+o la opción de:
+
+**Push**
+
+Después de hacer Push, el nuevo commit aparecerá en GitHub.
+
+---
+
+# 16. Pull: traer cambios desde GitHub
+
+**Pull** hace el proceso contrario.
+
+Sirve para traer cambios que están en GitHub hacia tu computador.
+
+```text
+GITHUB
+   │
+   │ PULL
+   ↓
+COMPUTADOR
 ```
 
 Por ejemplo:
 
 ```text
-Tu computador:
-
-Commit 1
-Commit 2
-Commit 3
-
-       ↓ PUSH
-
-GitHub:
-
-Commit 1
-Commit 2
-Commit 3
+GitHub
+   │
+   │
+   ↓
+Nuevo cambio
+   │
+   │ Pull
+   ↓
+Tu computador
 ```
+
+Esto es especialmente importante cuando trabajas con el mismo proyecto desde diferentes computadores o cuando otras personas también modifican el repositorio.
 
 ---
 
-# 17. ¿Qué significa Pull?
+# 17. Sync Changes
 
-**Pull** hace lo contrario.
+VS Code también tiene una opción llamada:
 
-Sirve para traer desde GitHub cambios que todavía no tienes en tu computador.
+**Sync Changes**
+
+La sincronización permite mantener el repositorio local y el repositorio de GitHub coordinados.
+
+Conceptualmente:
 
 ```text
-COMPUTADOR
-    ↑
-    │ PULL
-    │
-  GITHUB
+       VS CODE
+          ↕
+        SYNC
+          ↕
+       GITHUB
 ```
 
-Por ejemplo, si modificaste el proyecto desde otro computador y subiste esos cambios a GitHub, puedes utilizar `Pull` para traerlos a tu computador.
+En términos simples:
+
+* **Push** → enviar cambios a GitHub.
+* **Pull** → traer cambios desde GitHub.
+* **Sync** → sincronizar ambos lados.
 
 ---
 
-# 18. ¿Qué significa Sync Changes?
+# 18. El flujo normal de trabajo
 
-**Sync Changes** sirve para sincronizar tu repositorio local con GitHub.
-
-En términos sencillos:
+Una vez que el proyecto está conectado, el flujo más común será:
 
 ```text
-TU COMPUTADOR
-      ↕
-    SYNC
-      ↕
-    GITHUB
+1. Abrir el proyecto
+        ↓
+2. Trabajar en VS Code
+        ↓
+3. Modificar archivos
+        ↓
+4. Revisar los cambios
+        ↓
+5. Stage (+)
+        ↓
+6. Escribir mensaje
+        ↓
+7. Commit
+        ↓
+8. Push / Sync Changes
+        ↓
+9. Cambios aparecen en GitHub
 ```
-
-Puede enviar tus cambios y traer cambios remotos.
 
 ---
 
-# 19. Una advertencia importante: `.gitignore`
+# 19. El archivo `.gitignore`
 
-No todos los archivos de un proyecto deberían subirse a GitHub.
+No todos los archivos del proyecto deberían subirse a GitHub.
 
-Por ejemplo, no debes subir:
-
-* Contraseñas.
-* Claves API.
-* Tokens.
-* Información privada.
-* Archivos `.env` que contengan secretos.
-* Archivos generados automáticamente que no sean necesarios.
-
-Para evitar subir determinados archivos se utiliza:
+Para indicar a Git qué archivos debe ignorar se utiliza:
 
 ```text
 .gitignore
@@ -568,74 +712,49 @@ node_modules/
 .DS_Store
 ```
 
-El archivo `.gitignore` le indica a Git qué archivos o carpetas debe ignorar.
+Esto puede evitar que archivos innecesarios o información privada sean incluidos en el repositorio.
 
 ---
 
-# 20. Resumen del proceso completo
+## 19.1 Información que nunca deberías subir
 
-La primera vez:
+No debes subir accidentalmente:
 
-```text
-1. Instalar Git
-       ↓
-2. Iniciar sesión en GitHub desde VS Code
-       ↓
-3. Abrir la carpeta del proyecto
-       ↓
-4. Initialize Repository
-       ↓
-5. Stage
-       ↓
-6. Commit
-       ↓
-7. Publish to GitHub
-       ↓
-8. Elegir Public o Private
-       ↓
-9. Proyecto publicado en GitHub
-```
+* Contraseñas.
+* Tokens.
+* Claves API.
+* Credenciales.
+* Información privada.
+* Archivos `.env` que contengan secretos.
 
-Después, cada vez que trabajes:
-
-```text
-Modificar archivos
-       ↓
-     Stage
-       ↓
-     Commit
-       ↓
-      Push
-       ↓
-     GitHub
-```
+Antes de hacer un commit, revisa siempre los archivos que aparecen en **Source Control**.
 
 ---
 
-# 21. La idea fundamental
+# 20. Git y GitHub no son lo mismo
 
-Hay que distinguir entre **Git** y **GitHub**.
+Es importante entender esta diferencia.
 
-### Git
+## Git
 
-Es el sistema que controla las versiones de tu proyecto en tu computador.
+Git es el sistema de control de versiones que funciona en tu computador.
 
 ```text
 TU COMPUTADOR
-     ↓
-    GIT
+      ↓
+     GIT
 ```
 
-### GitHub
+## GitHub
 
-Es el servicio donde puedes almacenar el repositorio Git de manera remota.
+GitHub es un servicio donde puedes almacenar repositorios Git de manera remota.
 
 ```text
 TU COMPUTADOR
-     ↓
-    GIT
-     ↓
-  GITHUB
+      ↓
+     GIT
+      ↓
+    GITHUB
 ```
 
 Por eso:
@@ -644,44 +763,78 @@ Por eso:
 Git ≠ GitHub
 ```
 
-Git es la herramienta de control de versiones.
+Git controla las versiones.
 
-GitHub es un servicio que permite almacenar y trabajar con repositorios Git en línea.
+GitHub permite almacenar y compartir esos repositorios de manera remota.
 
 ---
 
-# 22. Flujo que debes recordar
+# 21. Resumen de los conceptos principales
 
-Si solamente quieres recordar una cosa de este tutorial, recuerda:
+| Concepto         | ¿Qué significa?                                         |
+| ---------------- | ------------------------------------------------------- |
+| **Git**          | Sistema de control de versiones                         |
+| **GitHub**       | Servicio donde almacenamos repositorios Git remotamente |
+| **Repository**   | Carpeta/proyecto controlado por Git                     |
+| **Stage**        | Seleccionar cambios para el próximo commit              |
+| **Commit**       | Guardar una versión del proyecto en el historial        |
+| **Push**         | Enviar commits a GitHub                                 |
+| **Pull**         | Traer cambios desde GitHub                              |
+| **Sync**         | Sincronizar el repositorio local y GitHub               |
+| **`.gitignore`** | Indica qué archivos Git debe ignorar                    |
 
-```text
-        VS CODE
-           │
-           │
-      modificas archivos
-           │
-           ↓
-         STAGE
-           │
-           ↓
-         COMMIT
-           │
-           ↓
-          PUSH
-           │
-           ↓
-        GITHUB
-```
+---
 
-Y cuando necesites traer cambios desde GitHub:
+# 22. El flujo que debes recordar
+
+La primera vez:
 
 ```text
-GITHUB
-   │
-   │ PULL
-   ↓
 VS CODE
+   ↓
+Comprobar Git
+   ↓
+Instalar Git si es necesario
+   ↓
+Configurar Git
+   ↓
+Iniciar sesión en GitHub
+   ↓
+Abrir proyecto
+   ↓
+Initialize Repository
+   ↓
+Stage
+   ↓
+Commit
+   ↓
+Publish to GitHub
+   ↓
+GITHUB
 ```
 
-Ese es el flujo básico para trabajar con VS Code + Git + GitHub.
+Después de que el proyecto ya está conectado:
 
+```text
+Modificar archivos
+       ↓
+     Stage
+       ↓
+     Commit
+       ↓
+   Push / Sync
+       ↓
+     GitHub
+```
+
+Y para traer cambios desde GitHub:
+
+```text
+GitHub
+   ↓
+ Pull
+   ↓
+VS Code
+```
+
+**Con este flujo puedes trabajar con GitHub desde VS Code sin tener que utilizar constantemente la terminal.**
