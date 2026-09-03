@@ -88,10 +88,6 @@ Console.WriteLine("Nombre: " + nombre);
 
 **¿Qué información aparece en la consola?**
 
-**¿Qué crees que significa `"Nombre: "`?**
-
-**¿Qué crees que significa `nombre`?**
-
 Prueba cambiar:
 
 ```csharp
