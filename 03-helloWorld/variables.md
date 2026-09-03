@@ -37,7 +37,7 @@ class Program
 Observa el resultado y luego responde las siguientes preguntas.
 
 ## 2. Variables
-
+Una **variable** es un espacio de memoria identificado por un nombre que permite almacenar un valor que puede ser utilizado y modificado durante la ejecución del programa.
 Observa:
 
 ```csharp
@@ -46,19 +46,14 @@ int vidas = 3;
 float velocidad = 5.5f;
 ```
 
-**¿Qué información está almacenando cada línea?**
-
 **¿Cuántas variables se están declarando en el código?**
 
 **¿Cuáles son sus nombres?**
 
 **¿Cuántos tipos de variables diferentes encuentras?**
 
-**¿Cuáles son esos tipos?**
+**¿Que otro tipos de variables crees que existan?**
 
-### Definición
-
-Una **variable** es un espacio de memoria identificado por un nombre que permite almacenar un valor que puede ser utilizado y modificado durante la ejecución del programa.
 
 ---
 
