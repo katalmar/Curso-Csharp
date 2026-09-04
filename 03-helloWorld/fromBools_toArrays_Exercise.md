@@ -196,3 +196,139 @@ class Program
 **¿Qué ocurre si `tieneLlave` cambia de `false` a `true`?**
 
 **¿Qué ocurre si el personaje tiene 150 puntos pero `estaVivo` es `false`?**
+
+# Arrays y organización de información
+
+## 1. ¿Qué es un array?
+
+Un **array** permite guardar varios valores dentro de una misma variable.
+
+Por ejemplo:
+
+```csharp
+string[] nombres = { "Ana", "Bruno", "Carla", "Diego" };
+```
+
+Este array guarda cuatro nombres:
+
+```text
+Índice:    0        1        2        3
+           ↓        ↓        ↓        ↓
+Valor:    Ana    Bruno    Carla    Diego
+```
+
+Un array comienza siempre en el **índice 0**.
+
+Podemos acceder a un elemento utilizando su índice:
+
+```csharp
+Console.WriteLine(nombres[0]);
+```
+
+Resultado:
+
+```text
+Ana
+```
+
+También:
+
+```csharp
+Console.WriteLine(nombres[2]);
+```
+
+Resultado:
+
+```text
+Carla
+```
+
+---
+
+## 2. Un array organiza información
+
+Un array puede guardar información del mismo tipo.
+
+Por ejemplo:
+
+```csharp
+int[] edades = { 20, 25, 19, 22 };
+```
+
+Aquí todos los elementos son números enteros.
+
+También podemos tener:
+
+```csharp
+string[] nombres = { "Ana", "Bruno", "Carla", "Diego" };
+```
+
+Aquí todos los elementos son `string`.
+
+
+---
+
+## 3. Relacionar información mediante índices
+
+Podemos tener diferentes arrays que utilizan los **mismos índices** para relacionar información.
+
+Por ejemplo:
+
+```csharp
+string[] nombres = { "Ana", "Bruno", "Carla", "Diego" };
+
+int[] edades = { 20, 25, 19, 22 };
+```
+
+Podemos organizar la información así:
+
+| Índice | `nombres` | `edades` |
+| -----: | --------- | -------: |
+|      0 | Ana       |       20 |
+|      1 | Bruno     |       25 |
+|      2 | Carla     |       19 |
+|      3 | Diego     |       22 |
+
+El índice `0` relaciona:
+
+```text
+Ana → 20
+```
+
+El índice `1` relaciona:
+
+```text
+Bruno → 25
+```
+
+El índice `2` relaciona:
+
+```text
+Carla → 19
+```
+
+
+---
+
+# 4. Ejercicio
+
+Base de datos de jugadores
+
+Crea una base de datos con al menos 5 jugadores ficticios.
+
+Cada jugador debe tener las siguientes características:
+
+Nombre
+Vidas
+Puntos
+Velocidad
+Tiene llave
+Está en la puerta
+
+La información de cada jugador debe estar relacionada correctamente, de manera que puedas identificar todas las características de un mismo jugador.
+
+Además:
+
+Debe existir una sola variable que permita seleccionar qué jugador visualizar.
+Al cambiar únicamente el valor de esa variable, deben mostrarse las características completas de otro jugador.
+Utiliza Console.WriteLine() para visualizar la información del jugador seleccionado.
