@@ -1,10 +1,10 @@
-Aquí está solo esa parte:
+# Instalar el entorno de C# en Windows (VS Code + C# Dev Kit + SDK)
+
+Esta es la ruta de instalación que funcionó, sin salir de Visual Studio Code.
 
 ---
 
-## Instala el SDK de .NET desde Visual Studio Code (con C# Dev Kit)
-
-### 1. Instala Visual Studio Code
+## 1. Instala Visual Studio Code
 
 Descárgalo desde:
 
@@ -12,32 +12,69 @@ https://code.visualstudio.com
 
 Instálalo con las opciones recomendadas.
 
-### 2. Instala la extensión C# Dev Kit
+---
 
-Abre VS Code y ve a la pestaña **Extensions** (o `Ctrl+Shift+X`).
+## 2. Instala la extensión C# Dev Kit
 
-Busca:
+1. Abre VS Code.
+2. Ve a la pestaña **Extensions** (o presiona `Ctrl+Shift+X`).
+3. Busca:
 
-C# Dev Kit
+   C# Dev Kit
 
+4. Instala la extensión publicada por **Microsoft**.
 
-Instala la extensión publicada por **Microsoft**.
+Al instalarla, VS Code instala automáticamente dos dependencias necesarias:
 
-> **Nota:** VS Code puede instalar automáticamente otras extensiones necesarias, como la extensión base de C#.
+- **C# extension** (el motor de lenguaje: IntelliSense, sintaxis, etc.)
+- **.NET Install Tool** (la herramienta que se encarga de descargar e instalar el SDK/runtime de .NET)
 
-### 3. Instala el SDK desde el panel de bienvenida
+> **Nota:** estas dos extensiones no son el SDK, son las herramientas que te van a permitir instalarlo en el siguiente paso.
 
-Al terminar de instalar C# Dev Kit, se abre automáticamente un panel de bienvenida ("Get Started with C# Dev Kit"). Ahí aparece una opción para **instalar el SDK de .NET** si VS Code no lo detecta en tu equipo. Solo haz clic y sigue el asistente.
+---
 
-> **Si el panel no aparece o lo cerraste:** abre la paleta de comandos con `Ctrl+Shift+P` (o `Cmd+Shift+P` en macOS) y busca **".NET: Get Started"**.
+## 3. Instala el SDK de .NET desde la paleta de comandos
 
-> **Importante:** esta vía instala la versión que Microsoft recomienda en ese momento, que puede no coincidir con una LTS específica que necesites para un curso o proyecto. Si requieres una versión exacta, es más seguro descargar el SDK manualmente desde https://dotnet.microsoft.com/download.
+1. Abre la paleta de comandos: `Ctrl+Shift+P`.
+2. Escribe y selecciona:
 
-### 4. Verifica la instalación
+   .NET Install Tool: Install the .NET SDK System-Wide
 
-Abre una terminal en VS Code (View → Terminal) y ejecuta:
+3. Si aparece un cuadro de **UAC** (permisos de administrador), acéptalo. La instalación "System-Wide" necesita escribir en carpetas del sistema (`C:\Program Files\dotnet`).
+4. Espera a que termine la descarga e instalación.
 
-dotnet --version
+> **Por qué esta opción y no otra:** "System-Wide" deja el SDK disponible en cualquier terminal del sistema (no solo dentro de VS Code) y lo agrega automáticamente al **PATH**.
 
+---
 
-Si aparece un número de versión (por ejemplo, `9.0.305`), el SDK quedó instalado correctamente.
+## 4. Verifica que el SDK quedó instalado
+
+1. **Cierra y vuelve a abrir** la terminal integrada de VS Code (`View → Terminal`), para que reconozca el PATH actualizado.
+2. Ejecuta:
+
+   dotnet --list-sdks
+
+   Deberías ver una línea con la versión instalada, por ejemplo:
+
+   9.0.305 [C:\Program Files\dotnet\sdk]
+
+3. Ejecuta también:
+
+   dotnet --version
+
+   Debe mostrar el número de versión sin errores, por ejemplo:
+
+   9.0.305
+
+> ✅ **Si ambos comandos muestran una versión, el SDK de .NET quedó correctamente instalado.**
+
+---
+
+## Resumen de la ruta
+
+| Paso | Acción |
+|------|--------|
+| 1 | Instalar Visual Studio Code |
+| 2 | Instalar la extensión **C# Dev Kit** (instala C# extension y .NET Install Tool como dependencias) |
+| 3 | Desde la paleta de comandos (`Ctrl+Shift+P`), ejecutar **".NET Install Tool: Install the .NET SDK System-Wide"** |
+| 4 | Verificar con `dotnet --list-sdks` y `dotnet --version` en la terminal integrada |
