@@ -1,5 +1,6 @@
+Claro. El ejercicio debe plantear **una decisión de diseño**: revisar el código anterior, reconocer qué decisiones se benefician de `switch` y cuáles deben permanecer con `if`, y después actualizar el programa.
 
-# `switch`, `case` y `break` en C#
+# `switch`, `case`, `break` y `default` en C#
 
 Hasta ahora hemos utilizado `if`, `else if` y `else` para que nuestro programa pueda tomar decisiones.
 
@@ -53,8 +54,8 @@ Podemos preguntarle al programa:
 ```text
 ¿Qué herramienta tiene el jugador?
 
-espada  → hacer una cosa
-arco    → hacer otra
+espada   → hacer una cosa
+arco     → hacer otra
 antorcha → hacer otra
 ```
 
@@ -83,13 +84,12 @@ switch (variable)
 }
 ```
 
-Podemos identificar tres elementos principales:
+Podemos identificar cuatro elementos principales:
 
 * `switch`
 * `case`
 * `break`
-
-También existe `default`, que veremos más adelante.
+* `default`
 
 ---
 
@@ -110,7 +110,7 @@ switch (herramienta)
 
 El programa va a revisar el contenido de:
 
-```csharp
+```text
 herramienta
 ```
 
@@ -329,6 +329,57 @@ Entonces se ejecuta:
 No reconocemos esa herramienta.
 ```
 
+`default` funciona de manera similar al `else` que ya conocemos:
+
+```text
+if / else
+
+si ocurre una condición
+        ↓
+       if
+
+si no ocurre
+        ↓
+      else
+```
+
+En `switch`:
+
+```text
+case
+
+si coincide una opción
+        ↓
+      case
+
+si ninguna coincide
+        ↓
+     default
+```
+
+### `default` no es obligatorio
+
+Un `switch` puede funcionar sin `default`.
+
+Por ejemplo:
+
+```csharp
+switch (herramienta)
+{
+    case "espada":
+        Console.WriteLine("Has elegido una espada.");
+        break;
+
+    case "arco":
+        Console.WriteLine("Has elegido un arco.");
+        break;
+}
+```
+
+Si la variable no coincide con ninguno de los `case`, simplemente no se ejecutará ningún bloque del `switch` y el programa continuará después de él.
+
+Sin embargo, `default` resulta útil cuando queremos establecer qué debe ocurrir cuando ninguna opción coincide.
+
 ---
 
 # 9. `switch` con entradas del usuario
@@ -383,6 +434,18 @@ Podemos representarlo así:
         │            │            │
         ▼            ▼            ▼
       espada        arco       antorcha
+```
+
+Si ninguna opción coincide:
+
+```text
+                     switch
+                        │
+                        ▼
+               ninguna coincidencia
+                        │
+                        ▼
+                     default
 ```
 
 ---
@@ -509,7 +572,7 @@ También podemos utilizar `if` y `switch` dentro del mismo programa.
 
 ---
 
-# Ejercicio: transformar el programa de creación de personajes
+# Ejercicio: actualizar el programa de creación de personajes
 
 En el ejercicio anterior creamos un programa en el que el usuario:
 
@@ -521,42 +584,88 @@ En el ejercicio anterior creamos un programa en el que el usuario:
 * recibe características de acuerdo con ese rol;
 * puede ver las características de su personaje.
 
-Ahora vamos a **transformar ese mismo programa** utilizando `switch`.
+Ahora vamos a **revisar ese mismo programa para decidir dónde resulta conveniente utilizar `switch` y dónde es mejor mantener `if`**.
 
 ## Objetivo
 
-Tomar el código realizado anteriormente y modificar la forma en que se toman las decisiones.
+Analizar las decisiones que ya existen en el programa y determinar **qué estructura resulta más apropiada para cada una**.
 
-El resultado final debe ser equivalente al programa anterior, pero utilizando `switch`, `case`, `break` y `default` en las decisiones donde resulte apropiado.
+No todas las decisiones deben convertirse en `switch`.
+
+La pregunta principal es:
+
+> **¿Esta decisión consiste en comparar una variable con diferentes opciones concretas?**
+
+Si la respuesta es sí, `switch` puede ser una buena opción.
+
+Si necesitamos realizar comparaciones como:
+
+```text
+puntos > 30
+puntos >= 50
+!estaCansado
+tieneAntorcha && tieneLlave
+```
+
+`if` continúa siendo una estructura apropiada.
 
 ---
 
-## Mantener el funcionamiento anterior
+## Revisar el código anterior
 
-El programa debe seguir permitiendo que el usuario:
+Toma el programa creado en el ejercicio anterior y revisa cada una de sus decisiones.
 
-1. Introduzca su nombre.
-2. Seleccione una herramienta de las opciones disponibles.
-3. Seleccione su color preferido.
-4. Indique si le gusta el té.
-5. Reciba un rol.
-6. Consulte las características de ese rol.
+Por ejemplo:
 
-Los roles y características pueden mantenerse iguales a los del ejercicio anterior.
+```text
+¿La herramienta tiene diferentes opciones?
+        ↓
+¿El color tiene diferentes opciones?
+        ↓
+¿Le gusta el té?
+        ↓
+¿Los puntos cumplen una condición?
+        ↓
+¿Tiene determinadas características?
+```
 
----
-
-## Transformar las decisiones
-
-Revisa las decisiones que realizaste anteriormente con:
+Para cada decisión, determina si resulta más conveniente utilizar:
 
 ```text
 if
-else if
-else
 ```
 
-y determina cuáles pueden expresarse mejor utilizando:
+o:
+
+```text
+switch
+```
+
+---
+
+## Identificar los casos apropiados para `switch`
+
+Busca dentro de tu programa las situaciones en las que una misma variable puede tener diferentes valores concretos.
+
+Por ejemplo:
+
+```text
+herramienta
+    ├── espada
+    ├── arco
+    └── antorcha
+```
+
+o:
+
+```text
+color
+    ├── rojo
+    ├── azul
+    └── verde
+```
+
+Estas son situaciones en las que puedes considerar utilizar:
 
 ```text
 switch
@@ -565,43 +674,50 @@ break
 default
 ```
 
-Por ejemplo, si una decisión depende de que una variable pueda tener diferentes opciones concretas:
+---
+
+## Mantener los `if` cuando sean necesarios
+
+No debes eliminar los `if` solamente porque ahora conoces `switch`.
+
+Si una condición necesita realizar una comparación, puedes mantener el `if`.
+
+Por ejemplo:
 
 ```text
-espada
-arco
-antorcha
+puntos > 30
 ```
 
-puede ser una buena candidata para utilizar `switch`.
+o:
+
+```text
+tieneAntorcha && tieneLlave
+```
+
+siguen siendo condiciones apropiadas para `if`.
+
+El objetivo es **elegir la estructura adecuada para cada decisión**.
 
 ---
 
-## Utilizar `default`
+## Actualizar el programa
 
-El programa debe contemplar qué ocurre cuando el usuario introduce una opción que no corresponde con las opciones disponibles.
+Después de identificar las situaciones apropiadas:
 
-Para estos casos utiliza:
+1. Actualiza el código.
+2. Utiliza `switch` donde resulte más claro.
+3. Mantén `if` donde sea necesario.
+4. Utiliza `case` para las diferentes opciones.
+5. Utiliza `break` después de cada `case`.
+6. Utiliza `default` cuando quieras establecer qué ocurre si ninguna opción coincide.
 
-```text
-default
-```
-
----
-
-## Mantener las decisiones del usuario
-
-El usuario debe seguir siendo quien tome las decisiones.
-
-El programa no debe tener todas las respuestas determinadas desde el principio.
-
-Las decisiones deben realizarse mediante las entradas del usuario.
+El programa debe seguir funcionando de la misma manera para el usuario.
 
 ---
 
 ## Resultado
 
-Al finalizar, el programa debe mostrar nuevamente información como:
+Al finalizar, el programa debe continuar mostrando:
 
 ```text
 Nombre del jugador
@@ -614,19 +730,23 @@ Resistencia
 
 El resultado debe depender de las decisiones tomadas por el usuario.
 
+La diferencia estará en **cómo está organizado el código para tomar esas decisiones**.
+
 ---
 
 ## Pregunta final
 
-Compara tu programa anterior con esta nueva versión.
+Compara el programa original con el programa actualizado.
 
 Pregúntate:
 
-* ¿Qué decisiones eran más fáciles de expresar con `if`?
-* ¿Cuáles resultan más claras con `switch`?
+* ¿Qué decisiones funcionan mejor con `if`?
+* ¿Qué decisiones funcionan mejor con `switch`?
+* ¿Por qué?
 * ¿Qué función cumple `case`?
 * ¿Qué función cumple `break`?
 * ¿Qué ocurre cuando ninguna opción coincide?
 * ¿Para qué sirve `default`?
+* ¿Por qué no sería conveniente utilizar `switch` para absolutamente todas las decisiones?
 
-El objetivo no es solamente conseguir que el programa funcione, sino reconocer **cuándo una estructura `switch` puede hacer que las decisiones del programa sean más claras de leer**.
+El objetivo no es reemplazar `if` por `switch`, sino aprender a **reconocer cuándo cada estructura resulta más adecuada**.
