@@ -18,7 +18,7 @@ En el menú superior selecciona:
 También puedes utilizar:
 
 ```text
-Ctrl + `
+Ctrl + ñ
 ```
 
 Se abrirá una terminal en la parte inferior de VS Code.
