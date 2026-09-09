@@ -12,10 +12,6 @@ En videojuegos, este estilo se volvió icónico dentro de un género completo: l
 El juego que le dio nombre al género "roguelike". Todo el mapa se construye con símbolos: `@` es el jugador, `#` son pasillos, `.` es piso, y las letras representan monstruos distintos (`K` un kestrel, `D` un dragón, etc.).
 - Artículo introductorio: https://www.asciiart.eu/ascii-games/articles/rogue-the-dawn-of-roguelikes
 
-### 🎮 NetHack (1987)
-Heredero directo de Rogue, mucho más complejo, y **todavía se actualiza hoy**. Es considerado el ejemplo definitivo del género ASCII.
-- Sitio oficial (se puede jugar gratis): https://nethack.org
-- Artículo introductorio: https://www.asciiart.eu/ascii-games/articles/nethack-the-ultimate-ascii-dungeon-adventure
 
 ### 🎮 Roguelikes modernos con ASCII art
 El estilo no murió — sigue usándose por elección estética, no por limitación técnica.
@@ -60,4 +56,4 @@ Con este código estamos "dibujando" un pequeño dungeon:
 
 Cada `Console.WriteLine()` imprime **una fila completa** del mapa, y al ejecutarlas en orden, una debajo de otra, la consola termina formando la imagen completa — exactamente la misma lógica que usaban Rogue y NetHack, solo que aquí lo estamos haciendo "a mano", línea por línea, en vez de generarlo automáticamente.
 
-> 💡 Este es justamente el punto de partida perfecto para, más adelante, reemplazar estas líneas escritas a mano por un **array 2D** que genere el mapa de forma dinámica — pero eso lo veremos en la siguiente clase.
+
