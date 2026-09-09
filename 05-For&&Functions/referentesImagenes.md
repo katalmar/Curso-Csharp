@@ -22,8 +22,6 @@ No es un videojuego tradicional, sino un experimento matemático de 1970 que se 
 - Artículo en Wikipedia: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 - Implementación en C/C++ con ASCII (para referencia técnica): https://kennycason.com/posts/2011-07-20-john-conways-game-of-life-windowsc-ascii.html
 
-### 🖥️ Galería general de ASCII art en videojuegos
-- https://www.asciiart.eu/ascii-games — sitio dedicado con artículos, historia y ejemplos jugables.
 
 ---
 
