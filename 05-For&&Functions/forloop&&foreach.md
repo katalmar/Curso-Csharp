@@ -44,80 +44,89 @@ Console.WriteLine(linea);
 
 ---
 
-## Paso 2: una línea con varios segmentos distintos
+## Paso 2: una línea con varios segmentos — `for` dentro de otro `for`
 
-Ahora el reto real: la línea `#.............#####....#`. Esta línea **no es un solo carácter repetido**, sino varios "bloques" que se van agregando uno después del otro al mismo string:
+Ahora el reto real: la línea `#.............#####....#`. Esta línea no es un solo carácter repetido, sino varios **segmentos** que se repiten:
 
 ```
 #   .............   #####   ....   #
 1        13           5       4    1
 ```
 
-La estrategia es la misma que en el Paso 1, pero encadenando **varios `for` (y algunos caracteres sueltos) uno detrás del otro**, todos escribiendo sobre la misma variable:
+Cada segmento tiene dos datos: **qué símbolo es** y **cuántas veces se repite**. Como son varios segmentos, primero los guardamos en dos arrays paralelos (uno con los símbolos, otro con la cantidad de repeticiones de cada uno):
+
+```csharp
+char[] simbolos     = { '#', '.', '#', '.', '#' };
+int[]  repeticiones = {  1 ,  13,  5 ,  4 ,  1  };
+```
+
+`simbolos[0]` va con `repeticiones[0]`, `simbolos[1]` con `repeticiones[1]`, y así sucesivamente — por eso se llaman **arrays paralelos**.
+
+Ahora sí, la parte importante: usamos un `for` **exterior** para recorrer cada segmento, y dentro de él, un `for` **interior** que repite ese símbolo la cantidad de veces indicada:
 
 ```csharp
 string linea = "";
 
-linea += "#";                          // el primer "#", va solo, no necesita loop
-
-for (int i = 0; i < 13; i++)           // bloque de 13 puntos
+for (int s = 0; s < simbolos.Length; s++)          // FOR EXTERIOR: recorre cada segmento
 {
-    linea += ".";
+    for (int i = 0; i < repeticiones[s]; i++)      // FOR INTERIOR: repite ese símbolo
+    {
+        linea += simbolos[s];
+    }
 }
 
-for (int i = 0; i < 5; i++)            // bloque de 5 numerales (el "cuartito")
-{
-    linea += "#";
-}
-
-for (int i = 0; i < 4; i++)            // bloque de 4 puntos
-{
-    linea += ".";
-}
-
-linea += "#";                          // el último "#", va solo
-
-Console.WriteLine(linea);              // Imprime: #.............#####....#
+Console.WriteLine(linea);                          // Imprime: #.............#####....#
 ```
 
-Cada `for` es responsable de **un solo tipo de bloque** dentro de la línea. Así, en vez de contar y escribir 24 caracteres a mano, solo necesitamos saber **qué símbolo va y cuántas veces se repite** en cada segmento — el `for` hace el resto.
+¿Cómo se lee esto paso a paso?
+
+1. El **for exterior** arranca en `s = 0` → mira el segmento 0: símbolo `'#'`, repetido `1` vez.
+2. Entra al **for interior**, que se repite `1` vez → agrega un solo `#` a `linea`.
+3. El for exterior avanza a `s = 1` → símbolo `'.'`, repetido `13` veces.
+4. El for interior ahora se repite `13` veces → agrega 13 puntos seguidos.
+5. Así continúa con `s = 2` (`#####`), `s = 3` (`....`) y `s = 4` (`#`), hasta terminar la línea completa.
+
+> 🔑 Este es un **loop anidado** (*nested loop*): un `for` completo viviendo dentro de otro `for`. El exterior controla "en qué segmento vamos", y el interior controla "cuántas veces repetir ese segmento". Cada vez que el exterior avanza una posición, el interior vuelve a arrancar desde cero para el nuevo segmento.
 
 ---
 
 ## Paso 3: guardando cada línea en un array, e imprimiendo todo junto
 
-Ya sabemos construir una línea con `for`. Ahora armemos el mapa completo: cada línea que construyamos se guarda en una posición de un **array de strings**, y al final las imprimimos todas.
+Ya sabemos construir cualquier línea con `for` anidados. Ahora armemos el mapa completo: cada línea que construyamos se guarda en una posición de un **array de strings**, y al final las imprimimos todas.
 
 ```csharp
 string[] mapa = new string[12]; // el mapa tiene 12 filas (tamaño fijo, como aprendimos)
 
-// Fila 0: la pared superior, todo "#"
+// Fila 0: la pared superior — un solo segmento de 24 "#"
+char[] simbolosFila0     = { '#' };
+int[]  repeticionesFila0 = {  24 };
+
 string fila0 = "";
-for (int i = 0; i < 24; i++) fila0 += "#";
+for (int s = 0; s < simbolosFila0.Length; s++)
+{
+    for (int i = 0; i < repeticionesFila0[s]; i++)
+    {
+        fila0 += simbolosFila0[s];
+    }
+}
 mapa[0] = fila0;
 
-// Fila 2: piso con el jugador "@"
-string fila2 = "#";
-for (int i = 0; i < 3; i++)  fila2 += ".";
-fila2 += "@";
-for (int i = 0; i < 19; i++) fila2 += ".";
-fila2 += "#";
-mapa[2] = fila2;
+// Fila 6: piso con el "cuartito" — varios segmentos
+char[] simbolosFila6     = { '#', '.', '#', '.', '#' };
+int[]  repeticionesFila6 = {  1 ,  13,  5 ,  4 ,  1  };
 
-// Fila 6: piso con el cuartito de "#####"
-string fila6 = "#";
-for (int i = 0; i < 13; i++) fila6 += ".";
-for (int i = 0; i < 5; i++)  fila6 += "#";
-for (int i = 0; i < 4; i++)  fila6 += ".";
-fila6 += "#";
+string fila6 = "";
+for (int s = 0; s < simbolosFila6.Length; s++)
+{
+    for (int i = 0; i < repeticionesFila6[s]; i++)
+    {
+        fila6 += simbolosFila6[s];
+    }
+}
 mapa[6] = fila6;
 
-// Fila 11: la pared inferior, todo "#"
-string fila11 = "";
-for (int i = 0; i < 24; i++) fila11 += "#";
-mapa[11] = fila11;
-
-// ... y así se construyen y guardan las demás filas del mapa
+// ... y así se construyen y guardan las demás filas del mapa, cada una
+// con sus propios arrays de símbolos y repeticiones
 
 foreach (string filaDelMapa in mapa)
 {
@@ -125,7 +134,7 @@ foreach (string filaDelMapa in mapa)
 }
 ```
 
-Cada fila terminada se guarda en su posición correspondiente del array `mapa` (`mapa[0]`, `mapa[2]`, `mapa[6]`, etc.), tal como aprendimos con arrays: **tamaño fijo, cada posición accesible por índice**.
+Cada fila terminada se guarda en su posición correspondiente del array `mapa` (`mapa[0]`, `mapa[6]`, etc.), tal como aprendimos con arrays: **tamaño fijo, cada posición accesible por índice**. Y como cada línea se arma con la misma técnica de "for exterior + for interior", solo necesitamos cambiar los arrays de `simbolos` y `repeticiones` para dibujar cualquier fila distinta.
 
 ---
 
@@ -143,7 +152,5 @@ foreach (string filaDelMapa in mapa)
 Esto se lee como: *"para cada string dentro del array `mapa`, llámalo `filaDelMapa` y haz `Console.WriteLine` con él"*. El `foreach` va recorriendo automáticamente todas las posiciones del array (`mapa[0]`, `mapa[1]`, `mapa[2]`... hasta la última), sin que nosotros tengamos que escribir la condición ni el incremento como en un `for`.
 
 > 🔑 Diferencia clave:
-> - **`for`** → lo usamos cuando queremos controlar exactamente cuántas repeticiones queremos (o necesitamos el número de la posición, el índice).
-> - **`foreach`** → lo usamos cuando solo queremos "visitar" cada elemento de una colección (como un array), sin importarnos su posición ni tener que calcular cuántos elementos hay.
-
-Por eso, en este ejemplo, usamos `for` para **construir** cada línea del dibujo (porque necesitábamos contar cuántos símbolos repetir), y usamos `foreach` para **imprimir** el resultado final (porque ahí solo queríamos recorrer todas las filas ya armadas, una por una).
+> - **`for`** → lo usamos cuando queremos controlar exactamente cuántas repeticiones queremos (o necesitamos el número de la posición, el índice). Por eso lo usamos para **construir** cada línea, incluso anidando un `for` dentro de otro cuando había varios segmentos.
+> - **`foreach`** → lo usamos cuando solo queremos "visitar" cada elemento de una colección (como un array), sin importarnos su posición ni tener que calcular cuántos elementos hay. Por eso lo usamos al final, solo para **imprimir** todas las filas ya armadas, una por una.
