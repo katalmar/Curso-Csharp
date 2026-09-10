@@ -187,3 +187,6 @@ Esto se lee como: *"para cada string dentro del array `dibujo`, llámalo `filaDe
 > 🔑 Diferencia clave:
 > - **`for`** → lo usamos cuando queremos controlar exactamente cuántas repeticiones queremos (o necesitamos el número de la posición, el índice). Por eso lo usamos para **construir** cada línea, incluso anidando un `for` dentro de otro cuando había varios segmentos.
 > - **`foreach`** → lo usamos cuando solo queremos "visitar" cada elemento de una colección (como un array), sin importarnos su posición ni tener que calcular cuántos elementos hay. Por eso lo usamos al final, solo para **imprimir** todas las filas ya armadas, una por una.
+
+## Ejercicio Final
+¡Lo que tu quieras! muestrame una imagen, la unica condicion es usar for y forloop.
