@@ -218,22 +218,20 @@ static void Main()
     int[] saltos    = new int[9];
 
     // ... (aquí van las 9 líneas que llenamos arriba) ...
+        for (int i = 0; i < textos.Length; i++){
+			int resultado = ManejarLinea(textos[i], saltos[i]);
 
-    for (int i = 0; i < textos.Length; i++)
-    {
-        int resultado = ManejarLinea(textos[i], saltos[i]);
+			if (resultado == 1)
+			{
+				break;
+			}
 
-        if (resultado == 1)
-        {
-            i = textos.length; // llegamos a un final: se sale del for y el programa termina
-        }
-
-        if (resultado != 0)
-        {
-            i = resultado - 1; // nos ubicamos justo antes de la línea destino...
-        }
-        // ...porque el for, al terminar la vuelta, le suma 1 a "i" automáticamente
-    }
+			else if (resultado != 0)
+			{
+				i = resultado - 1; // nos ubicamos justo antes de la línea destino...
+			}
+			// ...porque el for, al terminar la vuelta, le suma 1 a "i" automáticamente
+		}
 }
 ```
 
