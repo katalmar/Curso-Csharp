@@ -189,4 +189,4 @@ Esto se lee como: *"para cada string dentro del array `dibujo`, llámalo `filaDe
 > - **`foreach`** → lo usamos cuando solo queremos "visitar" cada elemento de una colección (como un array), sin importarnos su posición ni tener que calcular cuántos elementos hay. Por eso lo usamos al final, solo para **imprimir** todas las filas ya armadas, una por una.
 
 ## Ejercicio Final
-¡Lo que tu quieras! muestrame una imagen, la unica condicion es usar for y forloop.
+¡Lo que tu quieras! muestrame una imagen, la unica condicion es usar for y foreach.
