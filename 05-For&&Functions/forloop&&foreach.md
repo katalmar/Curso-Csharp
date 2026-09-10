@@ -30,8 +30,8 @@ El `for` es ideal cuando **ya sabemos cuántas veces** queremos repetir algo —
 Vamos a usar este mini-dibujo como ejemplo (podría ser la cara de un robot):
 
 ```
-xxxxxxx
-xOxxOx
+xxxxxxxx
+xxOxxOxx
 xx(--)xx
 ```
 
