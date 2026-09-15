@@ -182,8 +182,4 @@ Cada vez que corran este programa, `EjecutarEventoAleatorio` va a llamar a una f
 
 ---
 
-## Por qué esto les sirve para su proyecto final
 
-Esta técnica implementa directamente la mecánica **1.8 Azar y eventos aleatorios** de su lista, pero de una forma muy reutilizable: `EjecutarEventoAleatorio` no está "pegada" a un evento específico — sirve para el bosque, para un cofre, para cualquier situación donde quieran que ocurra "una cosa al azar entre varias posibles". Solo necesitan armar un array distinto de funciones para cada situación.
-
-Es también la puerta de entrada a la mecánica **1.4 Condiciones y estados**: el mismo concepto de "pasar funciones como argumento" se puede usar para escribir algo como `EjecutarSegunCondicion(bool condicion, Evento siVerdadero, Evento siFalso)`, que en vez de elegir al azar, elige qué función ejecutar según si una condición es `true` o `false`. Eso lo veremos en una próxima sesión.
