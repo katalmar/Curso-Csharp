@@ -178,8 +178,7 @@ Cada vez que corran este programa, `EjecutarEventoAleatorio` va a llamar a una f
 
 1. Agreguen **al menos dos eventos nuevos** (funciones nuevas) al array `posibles` — por ejemplo `EncontrarNada()`, `EncontrarEnemigo()`, `EncontrarCofre()`.
 2. Llamen a `EjecutarEventoAleatorio` **tres veces seguidas** en `Main` y corran el programa varias veces. Observen que no siempre sale lo mismo.
-3. **Reto:** ¿Qué pasaría si en vez de un array de 3 eventos "igual de probables", quisieran que `EncontrarTrampa` sea más rara que las demás (por ejemplo, que aparezca solo el 10% de las veces)? No hace falta que lo resuelvan todavía — piensen qué le tendrían que cambiar a `EjecutarEventoAleatorio` para lograrlo. Lo vamos a resolver juntos en la próxima sesión.
-
+3. **Reto:** ¿Qué pasaría si en vez de un array de 3 eventos "igual de probables", quisieran que `EncontrarTrampa` sea más rara que las demás (por ejemplo, que aparezca solo el 10% de las veces)? No hace falta que lo resuelvan todavía — piensen qué le tendrían que cambiar a `EjecutarEventoAleatorio` para lograrlo. 
 ---
 
 
