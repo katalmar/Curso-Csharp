@@ -56,13 +56,66 @@ Solo **uno** de los dos crea el proyecto inicial, para evitar que ambos generen 
 dotnet new console -n MiJuego
 ```
 
-Esto crea `MiJuego/MiJuego.csproj` y `MiJuego/Program.cs`. Después de crearlo, esa persona debe subirlo a GitHub (ver la sección 6) **antes** de que el otro integrante empiece a trabajar, para que el segundo lo descargue con `git pull` en vez de crear su propio proyecto por separado.
+Esto crea `MiJuego/MiJuego.csproj` y `MiJuego/Program.cs`. Después de crearlo, esa persona debe subirlo a GitHub (ver la sección 7) **antes** de que el otro integrante empiece a trabajar, para que el segundo lo descargue con `git pull` en vez de crear su propio proyecto por separado.
 
-> ⚠️ Las plantillas recientes de `dotnet new console` generan un `Program.cs` con **top-level statements** (código suelto, sin clase `Program` ni `Main` explícito). Si prefieren la estructura clásica que hemos usado en clase (`public class Program { public static void Main() { ... } }`), simplemente reescriban `Program.cs` con esa estructura a mano — funciona igual.
+> ⚠️ Las plantillas recientes de `dotnet new console` generan un `Program.cs` con **top-level statements** (código suelto, sin clase `Program` ni `Main` explícito). Por detrás, el compilador sigue generando esa clase y ese método automáticamente — no hace falta escribirlos ustedes. En clase preferimos la estructura explícita (`public class Program { public static void Main() { ... } }`) porque, en cuanto el proyecto crece en varios archivos y métodos propios, es más claro ver exactamente dónde vive `Main`. Ambas formas compilan al mismo resultado — es solo una preferencia de legibilidad. Si prefieren la explícita, reescriban `Program.cs` con esa estructura a mano.
 
 ---
 
-## 5. Organizando varias clases y funciones para que `Main` las use
+## 5. Qué son todas estas carpetas y archivos que aparecen
+
+Después de correr `dotnet new console` y `dotnet run`, van a ver que aparecieron carpetas y archivos que ustedes no escribieron. Vale la pena entender para qué sirve cada uno.
+
+### `bin/` y `obj/` — archivos generados, nunca se editan a mano
+
+Estas dos carpetas las crea `dotnet` automáticamente cada vez que compilan, y se pueden borrar sin miedo — se vuelven a generar solas.
+
+- **`obj/`**: archivos **intermedios** que `dotnet` necesita mientras compila, pero que no son el resultado final. Por ejemplo, `obj/Debug/net8.0/MiJuego.dll` es una versión intermedia de su código ya traducido, y `project.assets.json` es el registro de qué paquetes NuGet usa el proyecto.
+- **`bin/`**: el resultado **final** de la compilación — el programa ya armado y listo para ejecutar (`MiJuego.exe` en Windows, o `MiJuego` en Mac/Linux, junto con el `.dll` correspondiente). Cuando corren `dotnet run`, es justo esto lo que se ejecuta.
+
+> 🔑 Ninguna de las dos se sube a GitHub — por eso el `.gitignore` de plantilla Visual Studio las excluye. Si las subieran, además de ser basura innecesaria, podrían generar conflictos falsos entre ustedes dos por archivos que ni siquiera escribieron a mano.
+
+### `.csproj` — la configuración del proyecto
+
+`MiJuego.csproj` le dice a `dotnet` **cómo compilar ese proyecto**: qué tipo de proyecto es, qué versión de .NET usa, qué paquetes necesita.
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
+```
+
+| Línea | Para qué sirve |
+|---|---|
+| `<OutputType>Exe</OutputType>` | Que el resultado sea un ejecutable (un programa que corre), no una librería. |
+| `<TargetFramework>net8.0</TargetFramework>` | Qué versión de .NET están usando. |
+| `<ImplicitUsings>enable</ImplicitUsings>` | Activa `using` automáticos (como `using System;`), sin tener que escribirlos en cada archivo. |
+
+> 🔑 El `.csproj` **no lista sus archivos `.cs` uno por uno**: cualquier `.cs` que pongan dentro de la carpeta del proyecto se incluye automáticamente en la compilación — por eso pueden crear `Jugador.cs`, `Explorador.cs`, etc. sin "registrarlos" en ningún lado.
+
+A diferencia de `bin/` y `obj/`, **el `.csproj` sí se sube a GitHub** — es configuración de su proyecto, no algo generado automáticamente.
+
+### `.sln` — agrupa varios proyectos (no siempre hace falta)
+
+Un `.sln` (solution) agrupa **varios `.csproj`** para manejarlos juntos. Para un proyecto tan sencillo como el de ustedes (un solo `.csproj`), **no es necesario** — `dotnet run` y `dotnet build` funcionan perfectamente sin él. Empieza a valer la pena crearlo si en algún momento tienen más de un proyecto relacionado (por ejemplo, el juego y un proyecto de pruebas separado):
+
+```bash
+dotnet new sln -n MiJuego
+dotnet sln add MiJuego/MiJuego.csproj
+```
+
+Si lo llegan a crear, también se sube a GitHub.
+
+---
+
+## 6. Organizando varias clases y funciones para que `Main` las use
 
 Ya tienen varias clases (`Jugador`, `Explorador`, `Guerrero`, `Mago`, etc.) y funciones sueltas escritas durante el curso. En C#, lo normal es **un archivo por clase**, no todo en uno solo:
 
@@ -95,7 +148,7 @@ class Explorador : Jugador
 
 ### ¿Por qué `Main` las puede usar sin nada extra?
 
-En un proyecto de consola, **todos los archivos `.cs` que estén dentro de la carpeta del proyecto se compilan juntos automáticamente** — no hace falta "importarlos" a mano. Si no usan `namespace` (o usan el mismo en todos los archivos), `Program.cs` puede usar cualquier clase directamente:
+En un proyecto de consola, **todos los archivos `.cs` que estén dentro de la carpeta del proyecto se compilan juntos automáticamente** — no hace falta "importarlos" a mano. `Program.cs` puede usar cualquier clase directamente:
 
 ```csharp
 // Program.cs
@@ -133,7 +186,7 @@ public class Program
 
 ---
 
-## 6. Flujo de trabajo cuando son dos personas en el mismo repositorio
+## 7. Flujo de trabajo cuando son dos personas en el mismo repositorio
 
 Esta es la parte que cambia respecto a trabajar solos: como los dos van a subir cambios al mismo repositorio, hay que seguir un orden para no pisarse el trabajo.
 
